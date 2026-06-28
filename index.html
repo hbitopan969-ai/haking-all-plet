@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BITO | CYBER HUB PRO MAX</title>
+    <style>
+        /* पूरी स्क्रीन की सेटिंग - मैट्रिक्स और डार्क थीम */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #020604;
+            font-family: 'Courier New', Courier, monospace;
+            color: #00ff66;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* बैकग्राउंड में साइबर ग्रिड पैटर्न */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 255, 102, 0.02) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 255, 102, 0.02) 1px, transparent 1px);
+            background-size: 25px 25px;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* मुख्य हैकर टर्मिनल कंसोल */
+        .hacker-console {
+            background: rgba(4, 12, 8, 0.9);
+            border: 2px solid #00ff66;
+            border-radius: 14px;
+            width: 90%;
+            max-width: 550px;
+            padding: 25px;
+            box-shadow: 0 0 35px rgba(0, 255, 102, 0.25),
+                        inset 0 0 20px rgba(0, 255, 102, 0.1);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        /* कंसोल का टॉप बार */
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 102, 0.3);
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+        }
+
+        .dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff5f56;
+        }
+        .dot:nth-child(2) { background: #ffbd2e; }
+        .dot:nth-child(3) { background: #27c93f; }
+
+        .title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px #00ff66;
+        }
+
+        /* BITO प्रोफाइल नाम */
+        .profile-section {
+            margin-bottom: 30px;
+        }
+
+        .alias {
+            font-size: 2.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: #ffffff;
+            text-shadow: 0 0 10px #00ff66, 0 0 20px #00ff66;
+            margin: 0;
+            animation: glitch 2.5s infinite;
+        }
+
+        .status {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 6px;
+            letter-spacing: 1px;
+        }
+
+        /* हैकर मेनू बटन्स लिंक */
+        .menu-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .hacker-link {
+            background: rgba(0, 255, 102, 0.03);
+            border: 1px solid #00ff66;
+            padding: 16px 20px;
+            border-radius: 8px;
+            color: #00ff66;
+            font-size: 1.05rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* बटन लेज़र लाइट इफ़ेक्ट */
+        .hacker-link::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 102, 0.25), transparent);
+            transition: 0.6s;
+        }
+
+        .hacker-link:hover::before {
+            left: 100%;
+        }
+
+        .hacker-link:hover {
+            background: #00ff66;
+            color: #000000;
+            box-shadow: 0 0 20px #00ff66;
+            transform: scale(1.02);
+        }
+
+        .btn-tag {
+            font-size: 0.75rem;
+            border: 1px solid currentColor;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* लाइव कोडिंग कंसोल लॉक्स */
+        .terminal-logs {
+            background: #010402;
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 25px;
+            font-size: 0.8rem;
+            color: #00aa44;
+            height: 110px;
+            overflow-y: auto;
+            text-align: left;
+            white-space: pre-line;
+        }
+
+        /* कस्टम स्क्रॉलबार */
+        .terminal-logs::-webkit-scrollbar {
+            width: 5px;
+        }
+        .terminal-logs::-webkit-scrollbar-thumb {
+            background: #00ff66;
+            border-radius: 4px;
+        }
+
+        /* ग्लिच इफेक्ट एनीमेशन */
+        @keyframes glitch {
+            0% { text-shadow: 0 0 10px #00ff66; }
+            45% { text-shadow: 0 0 10px #00ff66; }
+            50% { text-shadow: -3px 2px 15px #ff0055, 3px -2px 15px #00ff66; }
+            55% { text-shadow: 0 0 10px #00ff66; }
+            100% { text-shadow: 0 0 10px #00ff66; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hacker-console">
+        <!-- टॉप बार डिज़ाइन -->
+        <div class="console-header">
+            <div class="dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="title">CYBER_OVERRIDE.SH</div>
+            <div style="width: 50px;"></div>
+        </div>
+
+        <!-- मुख्य नाम और स्टेटस -->
+        <div class="profile-section">
+            <h1 class="alias">BY: BITO</h1>
+            <div class="status">SYSTEM CORE: <span style="color: #fff; text-shadow: 0 0 5px #fff;">ULTRA_PRO_MAX</span></div>
+        </div>
+
+        <!-- सारे हैकर स्टाइल बटन्स की ग्रिड -->
+        <div class="menu-grid">
+            <!-- व्हाट्सएप ग्रुप लिंक -->
+            <a href="https://chat.whatsapp.com/ISe25zLezpICxD3yosiOzP?s=cl&p=a&ilr=1&amv=2" class="hacker-link" target="_blank" onclick="runLog('WhatsApp Link Opened. Redirecting to Secure Room...')">
+                <span>☠️ WHATSAPP HACKER</span>
+                <span class="btn-tag">v4.2 LIVE</span>
+            </a>
+
+            <!-- इंस्टाग्राम बटन पर तुम्हारी दी हुई नई लिंक सेट कर दी है -->
+            <a href="https://insta-grow-tau.vercel.app/?user=GtqHOVgvOhOtmYR54Brb61bJHUa2" class="hacker-link" target="_blank" onclick="runLog('Instagram Target Selected. Fetching Database Link...')">
+                <span>⚡ INSTAGRAM HACKER</span>
+                <span class="btn-tag">BYPASS</span>
+            </a>
+
+            <!-- बाकी बटन्स पर क्लिक करने से हैकिंग सिमुलेशन चालू होगा -->
+            <div class="hacker-link" onclick="startFakeHack('FACEBOOK', 'ULTRA')">
+                <span>🔥 FACEBOOK HACKER</span>
+                <span class="btn-tag">EXPLOIT</span>
+            </div>
+
+            <div class="hacker-link" onclick="startFakeHack('TWITTER', 'MAX_v2')">
+                <span>🛸 TWITTER HACKER</span>
+                <span class="btn-tag">ROOT_ACCESS</span>
+            </div>
+        </div>
+
+        <!-- नीचे का लाइव कोडिंग आउटपुट कंसोल बॉक्स -->
+        <div class="terminal-logs" id="logBox">root@bito_cyber:~# system initialized.
+root@bito_cyber:~# awaiting target injection...</div>
+    </div>
+
+    <script>
+        const logBox = document.getElementById('logBox');
+
+        // कंसोल में नई लाइन प्रिंट करने का फंक्शन
+        function printLog(text, type = 'success') {
+            const timestamp = new Date().toLocaleTimeString();
+            let colorStyle = "color: #00ff66;"; 
+            
+            if (type === 'info') colorStyle = "color: #ffffff;";
+            if (type === 'danger') colorStyle = "color: #ff0055; font-weight: bold;";
+
+            logBox.innerHTML += `\n<span style="color: #666;">[${timestamp}]</span> root@bito_cyber:~# ${text}`;
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        function runLog(msg) {
+            printLog(msg, 'info');
+        }
+
+        // नकली प्रो मैक्स हैकिंग इफ़ेक्ट चलाने का फ़ंक्शन
+        function startFakeHack(platform, version) {
+            logBox.innerHTML = `root@bito_cyber:~# [LAUNCHING] ${platform} ATTACK PROTOCOL...`;
+            
+            setTimeout(() => printLog(`Connecting to ${platform} cloud mainframes...`, 'info'), 300);
+            setTimeout(() => printLog(`Injecting payload via exploit code (${version})...`, 'info'), 900);
+            setTimeout(() => printLog(`Bypassing 2FA firewall databases...`, 'info'), 1500);
+            setTimeout(() => printLog(`Extracting user tokens and secure keys...`, 'info'), 2200);
+            setTimeout(() => printLog(`${platform} SYSTEM COMPROMISED SUCCESSFULLY!`, 'danger'), 3000);
+        }
+    </script>
+</body>
+</html>
